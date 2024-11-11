@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-p4zhfj)%rp*nh13-454%0fu&4m&^x%=(4v!y0)x8=_hyh+x6zd
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'drf-erp.vercel.app']
+ALLOWED_HOSTS = ['*']
 
 
 CSRF_TRUSTED_ORIGINS = ['http://localhost:8000']

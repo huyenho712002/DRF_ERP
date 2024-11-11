@@ -20,9 +20,9 @@ from django.urls import path, include
 def home(request):
     return HttpResponse("Welcome to the API!")
 urlpatterns = [
-     path('', home),
+    path('', home, name='home'),
     path('admin/', admin.site.urls),
-    path('', include('db_diy.urls')),
-    path('', include('inventory.urls')),
-    path('', include('supplier.urls')),
+    path('api/', include('db_diy.urls')),
+    path('inventory/', include('inventory.urls')),
+    path('supplier/', include('supplier.urls')),
 ]
