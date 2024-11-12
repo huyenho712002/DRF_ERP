@@ -28,6 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+CSRF_TRUSTED_ORIGINS = ['https://drf-erp.vercel.app/']
 
 CSRF_TRUSTED_ORIGINS = ['http://localhost:8000']
 
@@ -131,9 +132,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATIC_DIRS = [os.path.join(BASE_DIR, 'db_diy/static'),
-    os.path.join(BASE_DIR, 'inventory/static'),
-    os.path.join(BASE_DIR, 'supplier'),]
+STATIC_DIRS = []
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
