@@ -8,6 +8,14 @@
   ],
   "routes": [
     {
+      "src": "/admin/(.*)",
+      "dest": "backend_erp/wsgi.py"
+    },
+    {
+      "src": "/api/(.*)",
+      "dest": "backend_erp/wsgi.py"
+    },
+    {
       "src": "/(.*)",
       "dest": "backend_erp/wsgi.py"
     }
