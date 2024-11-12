@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-
 import os
 from pathlib import Path
 
@@ -27,12 +26,10 @@ SECRET_KEY = 'django-insecure-p4zhfj)%rp*nh13-454%0fu&4m&^x%=(4v!y0)x8=_hyh+x6zd
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = []
 
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8000']
 
-CSRF_TRUSTED_ORIGINS = ['https://drf-erp-osy5.vercel.app/']
-
-DEBUG = False
 # Application definition
 
 INSTALLED_APPS = [
@@ -48,12 +45,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary',
     'cloudinary_storage',
-    'whitenoise.runserver_nostatic',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -87,15 +82,19 @@ WSGI_APPLICATION = 'backend_erp.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 
-import dj_database_url  # type: ignore
+from dotenv import load_dotenv # type: ignore
+load_dotenv()
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL', 'postgresql://db_diy_user:Nw42TkXxrv9WKibLjQrXJ6oo2291bGmP@dpg-cspd7g8gph6c73d0kl60-a.oregon-postgres.render.com:5432/db_diy')
-    )
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": os.environ.get("DB_NAME"),
+        "USER": os.environ.get("DB_USER"),
+        "PASSWORD": os.environ.get("DB_PASSWORD"),
+        "HOST": os.environ.get("DB_HOST"),
+        "PORT": os.environ.get("DB_PORT"),
+    }
 }
-
-
 
 
 # Password validation
@@ -132,10 +131,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = '/static/'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
+STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -154,3 +150,9 @@ AUTH_USER_MODEL = 'db_diy.Users'
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
+STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
+
+ALLOWED_HOSTS = ['.vercel.app', '.now.sh']
+# Or * to allow all
+ALLOWED_HOSTS = ['*']
