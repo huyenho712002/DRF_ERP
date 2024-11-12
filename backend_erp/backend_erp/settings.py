@@ -86,15 +86,16 @@ WSGI_APPLICATION = 'backend_erp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+
+import dj_database_url  # type: ignore
+
 DATABASES = {
-    'default':{
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'db_diy',
-        'USER': 'postgres',
-        'PASSWORD': '123456',
-        'HOST': 'localhost'
-    }
+    'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL', 'postgresql://db_diy_user:Nw42TkXxrv9WKibLjQrXJ6oo2291bGmP@dpg-cspd7g8gph6c73d0kl60-a.oregon-postgres.render.com:5432/db_diy')
+    )
 }
+
+
 
 
 # Password validation
@@ -132,6 +133,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
